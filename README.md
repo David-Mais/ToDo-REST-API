@@ -81,3 +81,19 @@ The application will start running at `http://localhost:8080`.
 
 You can use tools like cURL, Postman, or any HTTP client 
 library to send requests to the API endpoints.
+
+## Experience while Developing/Learning with ChatGPT:
+- It was pretty easy competing this task with AI since it had all the
+specific answers whet i was looking for I could provide snippets
+and AI would provide tailored solutions for my project
+- This task took me about 4 hours in total to complete since it
+didn't have much complexity it was simple CRUD application
+- Code was not always ready to run since there were times when
+GPT provided DTOs that didn't exist in the project or was not relevant
+for my specific use cases. But overall about 90%-95% of code was 
+already ready to be used.
+- There was a challenge in sketching out the project what would be
+the relevant information to return on each http request and which
+DTOs to use where.
+- One type of prompt that I used the most `Help me do specific task
+within this method """Code snippet""""`
