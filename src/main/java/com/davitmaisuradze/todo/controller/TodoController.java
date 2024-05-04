@@ -1,6 +1,5 @@
 package com.davitmaisuradze.todo.controller;
 
-import com.davitmaisuradze.todo.dto.todo.NewTodoDto;
 import com.davitmaisuradze.todo.dto.todo.TodoDto;
 import com.davitmaisuradze.todo.dto.todo.TodoInfoDto;
 import com.davitmaisuradze.todo.service.TodoService;
@@ -27,9 +26,9 @@ public class TodoController {
     @PostMapping("/{username}")
     public ResponseEntity<TodoDto> createTodo(
             @PathVariable("username") String username,
-            @RequestBody NewTodoDto newTodoDto
+            @RequestBody TodoInfoDto todoInfoDto
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(todoService.createTask(username, newTodoDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoService.createTask(username, todoInfoDto));
     }
 
     @GetMapping("/{username}")
@@ -43,9 +42,9 @@ public class TodoController {
     public ResponseEntity<TodoInfoDto> updateTodo(
             @PathVariable String username,
             @PathVariable String title,
-            @RequestBody NewTodoDto newTodoDto
+            @RequestBody TodoInfoDto todoInfoDto
     ) {
-        return ResponseEntity.ok(todoService.updateTodo(username, title, newTodoDto));
+        return ResponseEntity.ok(todoService.updateTodo(username, title, todoInfoDto));
     }
 
     @DeleteMapping("/{username}/{title}")

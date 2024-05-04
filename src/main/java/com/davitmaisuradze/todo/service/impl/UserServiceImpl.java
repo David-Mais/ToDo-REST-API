@@ -18,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(CreateUserDto createUserDto) {
+        checkCreateUserDto(createUserDto);
+
         if (usernameExists(createUserDto.getUsername())) {
             throw new TodoException("Username already exists", "400");
         }
@@ -35,6 +37,20 @@ public class UserServiceImpl implements UserService {
                 .lastName(user.getLastName())
                 .todos(new ArrayList<>())
                 .build();
+    }
+
+    private static void checkCreateUserDto(CreateUserDto createUserDto) {
+        String notValidRegistration = "Not valid registration";
+
+        if (createUserDto.getUsername() == null || createUserDto.getUsername().isBlank()) {
+            throw new TodoException(notValidRegistration, "400");
+        }
+        if (createUserDto.getFirstName() == null || createUserDto.getFirstName().isBlank()) {
+            throw new TodoException(notValidRegistration, "400");
+        }
+        if (createUserDto.getLastName() == null || createUserDto.getLastName().isBlank()) {
+            throw new TodoException(notValidRegistration, "400");
+        }
     }
 
     private boolean usernameExists(String username) {

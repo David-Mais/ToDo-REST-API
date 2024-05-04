@@ -1,6 +1,5 @@
 package com.davitmaisuradze.todo.service.impl;
 
-import com.davitmaisuradze.todo.dto.todo.NewTodoDto;
 import com.davitmaisuradze.todo.dto.todo.TodoDto;
 import com.davitmaisuradze.todo.dto.todo.TodoInfoDto;
 import com.davitmaisuradze.todo.dto.user.UserInfoDto;
@@ -25,14 +24,14 @@ public class TodoServiceImpl implements TodoService {
     private final TodoMapper todoMapper;
 
     @Override
-    public TodoDto createTask(String username, NewTodoDto newTodoDto) {
+    public TodoDto createTask(String username, TodoInfoDto todoInfoDto) {
         User user = userRepository.findByUsername(username).orElse(null);
 
         if (user == null) {
             throw new TodoException("User not found", "404");
         }
 
-        if (todoExists(newTodoDto.getTitle(), username)) {
+        if (todoExists(todoInfoDto.getTitle(), username)) {
             throw new TodoException("Todo already exists", "400");
         }
 
@@ -46,8 +45,8 @@ public class TodoServiceImpl implements TodoService {
 
         Todo todo = Todo
                 .builder()
-                .title(newTodoDto.getTitle())
-                .description(newTodoDto.getDescription())
+                .title(todoInfoDto.getTitle())
+                .description(todoInfoDto.getDescription())
                 .user(user)
                 .build();
         todo = todoRepository.save(todo);
@@ -76,15 +75,15 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoInfoDto updateTodo(String username, String title, NewTodoDto newTodoDto) {
+    public TodoInfoDto updateTodo(String username, String title, TodoInfoDto todoInfoDto) {
         Todo todo = todoRepository.findByTitleAndUsername(title, username).orElse(null);
 
         if (todo == null) {
             throw new TodoException("Todo not found", "404");
         }
 
-        todo.setTitle(newTodoDto.getTitle());
-        todo.setDescription(newTodoDto.getDescription());
+        todo.setTitle(todoInfoDto.getTitle());
+        todo.setDescription(todoInfoDto.getDescription());
         todo = todoRepository.save(todo);
         return todoMapper.todoEntityToTodoInfoDto(todo);
     }

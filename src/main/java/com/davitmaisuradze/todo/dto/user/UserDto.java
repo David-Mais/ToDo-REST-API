@@ -1,6 +1,6 @@
 package com.davitmaisuradze.todo.dto.user;
 
-import com.davitmaisuradze.todo.entity.Todo;
+import com.davitmaisuradze.todo.dto.todo.TodoInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,5 +19,5 @@ public class UserDto {
     private String username;
     private String firstName;
     private String lastName;
-    private List<Todo> todos;
+    private List<TodoInfoDto> todos;
 }

@@ -16,6 +16,8 @@
 	<properties>
 		<java.version>17</java.version>
 
+		<h2.version>2.2.224</h2.version>
+
 		<lombok.version>1.18.32</lombok.version>
 
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -43,9 +45,17 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+<!--		Testing-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -69,13 +79,6 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${mapstruct.version}</version>
 		</dependency>
-
-
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>${jacoco.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -90,17 +93,24 @@
 				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
+						<id>report</id>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<excludes>
+								<exclude>com/davitmaisuradze/todo/dto/**</exclude>
+								<exclude>com/davitmaisuradze/todo/entity/**</exclude>
+								<exclude>com/davitmaisuradze/todo/exception/**</exclude>
+								<exclude>com/davitmaisuradze/todo/mapper/**</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
